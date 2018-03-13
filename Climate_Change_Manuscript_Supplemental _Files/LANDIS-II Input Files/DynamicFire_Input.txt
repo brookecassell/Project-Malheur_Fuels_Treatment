@@ -1,0 +1,98 @@
+LandisData  "Dynamic Fire System"
+
+Timestep  1
+
+ClimateConfigFile	ClimateConfigFile.txt
+
+RelativeHumiditySlopeAdjust	37.98 << Calculated per equation from Glassy & Running (1994) and per spreadsheet developed by Melissa Lucash
+
+EventSizeType	duration_based  <<'size_based' or 'duration_based' >>size_based for calibration, then duration-based for real runs
+
+BuildUpIndex	Y	<< yes or no; Y or N
+
+DynamicFireRegionTable	FireRegion_Input.txt  
+
+InitialFireRegionsMap	fire_reg4ha1.img
+
+>>DynamicEcoregionTable - irrelevant, as the climate library uses ecoregions as fire regions, per the v3 user guide (January 2016)
+
+GroundSlopeFile		slopemap.img
+UphillSlopeAzimuthMap	azimuthmap.img
+
+
+SeasonTable  << Based on fires from 2000 - 2014 (15 years)
+>> Season  Leaf,    Prop of  Percent  DayLength	 Start  End
+>> Name    Status   Fires    Curing   Prop       Day    Day
+>> ------  -------  -------  -------  ---------  -----  ---
+>> Winter (Jan-Feb) - no fires possible
+   Spring  LeafOn   0.01     70		1.0      60	120	<< Mar-Apr   
+   Summer  LeafOn   0.87     70		1.0      121	273	<< May-Sep
+   Fall    LeafOff  0.12     70		1.0      274	365	<< Oct-Dec
+
+
+InitialWeatherDatabase   Fire_Weather_Data.csv  << won't need this in later versions - use data from Alec's file as placeholder for now
+
+DynamicWeatherTable  << Optional table - not using
+>>Year  FileName
+
+
+FuelTypeTable
+>> Allowed base types:  Conifer, ConiferPlantation, Deciduous, Slash, Open
+>> Allowed surface types:  See Canadian Fire Behavior System (CFBS)
+
+>> All fuel types are from Lake Tahoe files and from Pep as of 10/16/2016. 11/15/2016: Added "7" Lodgepole pine stands.
+
+>> Index BaseType    SurfType InitProb	a	b	c	q	BUI	maxBE	CBH	FWIScale FWIShape
+
+   1	Conifer		C2	1.0	110	0.0282	1.5	0.50	62	1.321	1	0.3	-4	<< young mixed conifer - from SN
+   2	Conifer		C2	1.0	110	0.0282	1.5	0.70	64	1.321	2	0.3	-4	<< mid-aged mixed conifer - from SN
+   3	Conifer		C2	1.0	110	0.0282	1.5	0.70	64	1.321	4	0.3	-4	<< old mixed conifer - copied all parameters from type 2 except CBH
+
+   4	Conifer		C2	1.0	110	0.0282	1.5	0.50	62	1.321	1	0.34	-4.4	<< young pine - from SN pine/white fir
+   5	Conifer	  	C3	1.0	72	0.05	3.5	0.70	62	1.261	2	0.34	-4.4	<< mid-aged pine - from SN pine/white fir
+   6	Conifer   	C3	1.0	72	0.05	3.5	0.70	62	1.261	5	0.34	-4.4	<< old pine - from SN pine/white fir
+   
+   7    Conifer         C4      1.0     110     0.0282  1.5     0.50    62      1.321   1       0.3     -4      << lodgepole pine stands (Brooke)
+
+   8    Conifer         M1      1.0     14      0.12376	2.827	0.90	32	1.179	1	0.2	-3.6    << riparian mixed-wood/shrub areas (Brooke)
+
+   9	Deciduous	C7	1.0	14	0.12376	2.827	0.90	32	1.179	1	0.2	-3.6	<< young deciduous - oaks (LouderMilk)
+  10	Deciduous	C7	1.0	14	0.12376	2.827	0.90	32	1.179	2	0.2	-3.6	<< old deciduous - oaks (LouderMilk)
+
+  11	Deciduous	D1	1.0	14	0.12376	2.827	0.90	75	1.067	2	0.25	-3.6	<< oak - from NJ oak upland (TL6)
+
+  12	Conifer		C2	1.0	110	0.0282	1.5	0.7	64	1.321	1	0.3	-4	<< (Shrubs - from Pep, oak - from NJ oak upland (TL6))		
+
+  20    Conifer		C1	.1	30  	0.0232	1.6	0.50	500	1.179	2	0.3	-4	<< Temporary fuel type following pre-commercial thinning or RxFire only
+  21	Conifer		C1	.1	6	0.0649	4.5	0.50	500	1.076	5	0.3	-4	<< Temporary fuel type following dry-mixed conifer and ponderosa pine harvest prescriptions
+		
+  
+  31	Open		O1b	1.0	250	0.035	1.7	1	1	1	0 	0.3	-4	<< open areas with dry grass, sagebrush and young juniper (Brooke)
+  32	Open            O1b	0.9	250	0.035	1.7	1.0	1	1.0	0	0.3	-4	<< open areas with invasive grass (cheatgrass) that carry fire (Brooke, modified from Brian Miranda)
+  33	Open            O1a	0.8	190	0.031	1.4	1.0	1	1.0	0       0.3	-4	<< open areas with native bunch grasses - only patchy fire (Brooke, modified from Brian Miranda)
+
+>> Unused fuel types from Pep
+>>  7	Conifer 	C2	1.0	110	0.0282	1.5	0.50	500	1.321	1	0.2	-3.6	<< young cedar/hemlock/sequoia - from SN young sequoia
+>>  8	Conifer 	C6	1.0	30	0.0800	3.0	0.80	62	1.197	3	0.2	-3.6	<< mid-aged cedar/hemlock/sequoia - from SN mid-aged sequoia
+>>  9	Conifer 	C6	1.0	30	0.0800	3.0	0.80	62	1.197	10	0.2	-3.6	<< old cedar/hemlock/sequoia - from SN old sequoia
+>> 14	Conifer		C2	1.0	110	0.0282	1.5	0.7	64	1.321	1	0.3	-4	<<	all [deciduous?] SHRUBS  -LMK
+
+SeverityCalibrationFactor  1
+
+
+
+FireDamageTable
+>> Cohort Age       FireSeverity - 
+>> % of longevity   FireTolerance
+>> --------------   --------------
+	1%		-3
+	2%		-2
+	4%		-1
+	5%		0
+	20%		1
+	30%		2
+	40% 		3
+
+
+MapNames  fire/severity-{timestep}.img
+

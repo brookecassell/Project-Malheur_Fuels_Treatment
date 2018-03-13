@@ -1,0 +1,31 @@
+LandisData  Ecoregions
+
+>>         Map
+>> Active  Code  Name   Description
+>> ------  ----  -----  -----------
+      no       0  non     "inactive"
+      yes    101  eco101   "101"
+      yes    102  eco102   "102"
+      yes    103  eco103   "103"
+      yes    104  eco104   "104"     
+      yes    105  eco105   "105"
+      yes    201  eco201   "201"
+      yes    202  eco202   "202"
+      yes    203  eco203   "203"
+      yes    204  eco204   "204"
+      yes    205  eco205   "205"     
+      yes    301  eco301   "301"
+      yes    302  eco302   "302"      
+      yes    303  eco303   "303"
+      yes    304  eco304   "304"
+      yes    305  eco305   "305"
+      yes    401  eco401   "401"     
+      yes    402  eco402   "402"
+      yes    403  eco403   "403"
+      yes    404  eco404   "404"
+      yes    405  eco405   "405"
+      yes    501  eco501   "501"     
+      yes    502  eco502   "502"
+      yes    503  eco503   "503"
+      yes    504  eco504   "504"
+      yes    505  eco505   "505"
