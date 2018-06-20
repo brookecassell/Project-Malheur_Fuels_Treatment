@@ -1,0 +1,305 @@
+LandisData  "Biomass Harvest"
+
+>> 03/07/2016 - Test run to see if the Single Repeat function is throwing off harvest (no harvest after 20 years). Also, 
+>> turned off all time restrictions (Maximum Age, MinimumTimeSinceLastHarvest) and turned off ForestTypeTable.
+>> 03/09/2017 SingleRepeat does seem to be the problem, as it harvests throughout when it's off. Turned ForestTypeTable back on.
+>> 4/7/2017 Trying with replacing 100% with ALL
+>> 4/7/2017 Since 100 never works, I'm running with 99%
+>> 7/6/2017 Switching from Forest Type Table to Economic Ranking. Single Repeat still not working, so that's turned off.
+>> 8/1/2017 Testing the new Single Repeat functionality
+>> 9/10/2017 Final version for Business-As-Usual scenario. Includes economic ranking and single repeat.
+
+>> 9/10/2017 Business-as-Usual + Increased Rx Fire Scenario. This version turns the Rx Fire prescription on for 5% of management area 3 (Forest Service lands).
+>> 11/18/2017 This version is for the treatment optimization scenarios - includes optimized maps and increases target %s. This one for BAU + Extra RxFire.
+
+Timestep    10
+
+ManagementAreas "./optimized_management.img"
+
+Stands      "./optimized_stands.img"
+
+>> -----------------------------------------
+>> PRESCRIPTIONS
+
+Prescription	FS-PIPO  	<<includes Rx fire following harvest & after 10 years
+	StandRanking 	Economic
+	>> Species Economic Rank Minimum Age
+	>> ------- ------------- -----------
+  	   pinupond	95		40   
+	   pseumenz	75 		40
+  	   lariocci	65		40   	   
+	      	
+	SiteSelection	Complete	
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	1-10 (99%) 20-60(50%) 70-140(60%)
+	   abiegran	1-10 (99%) 20-140(90%)
+	   juniocci	1-10 (99%) 20-140(90%)
+	   pinucont	1-10 (99%) 20-140(90%)
+	   pseumenz	1-10 (99%) 20-60(60%) 70-140(90%)
+           lariocci	1-10 (99%) 20-60(20%) 70-140(60%)
+	   
+	>> Immediate RxBurn
+	>>--------	---------------------	
+	   piceenge	1-10 (99%) 20-30(5%)
+	   pinualbi	1-10 (99%) 20-30(5%)
+	   poputrem	1-10 (99%) 20-30(5%)
+	   cercledi	1-30 (99%)
+	   toleresp	1-60 (99%)
+	   intoresp	1-60 (99%)
+	   nonnseed	1-80 (99%)
+	   fixnresp	1-80 (99%)	  
+	
+	SingleRepeat	10 << RxBurn after 10 years
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	1-10(50%) 20-30(5%) 40-50(2%)
+	   abiegran	1-20(60%) 30-50(5%) 60-80(2%)
+	   juniocci	1-50(60%) 60-80(2%)
+	   pinucont	1-10(70%) 20-30(20%) 40-60(2%) 
+	   pseumenz	1-10(60%) 20-30(5%) 40-50(2%)
+           lariocci	1-10(50%) 20-30(5%) 40-50(2%)
+   	   piceenge	1-10(70%) 20-30(5%)
+ 	   pinualbi	1-10(70%) 20-30(5%)
+	   poputrem	1-10(70%) 20-30(10%)
+	   cercledi	1-50(70%)
+	   toleresp	1-60(90%)
+	   intoresp	1-60(90%)
+	   nonnseed	1-80(90%)
+	   fixnresp	1-80(90%)	
+
+Prescription	FS-DryMixed	<<includes Rx fire following harvest & after 10 years
+	StandRanking	Random
+>>	MaximumAge	150 		<<for example
+>>	MinimumTimeSinceLastHarvest	30
+	SiteSelection	Complete
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	1-10 (99%) 20-60(40%) 70-140(70%)
+	   abiegran	1-10 (99%) 20-140(80%)
+	   juniocci	1-10 (99%) 20-140(90%)
+	   pinucont	1-10 (99%) 20-140(90%)
+	   pseumenz	1-10 (99%) 20-60(50%) 70-140(80%)
+           lariocci	1-10 (99%) 20-60(40%) 70-140(70%)  
+	
+	>> Immediate RxBurn
+	>>--------	---------------------	
+	   piceenge	1-10 (99%) 20-30(5%)
+	   pinualbi	1-10 (99%) 20-30(5%)
+	   poputrem	1-10 (99%) 20-30(5%)
+	   cercledi	1-30 (99%)
+	   toleresp	1-60 (99%)
+	   intoresp	1-60 (99%)
+	   nonnseed	1-80 (99%)
+	   fixnresp	1-80 (99%)		  
+	
+	SingleRepeat	10 << RxBurn after 10 years
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	1-10(50%) 20-30(5%) 40-50(2%)
+	   abiegran	1-20(60%) 30-50(5%) 60-80(2%)
+	   juniocci	1-50(60%) 60-80(2%)
+	   pinucont	1-10(70%) 20-30(20%) 40-60(2%) 
+	   pseumenz	1-10(60%) 20-30(5%) 40-50(2%)
+           lariocci	1-10(50%) 20-30(5%) 40-50(2%)
+	   piceenge	1-10(70%) 20-30(5%)
+	   pinualbi	1-10(70%) 20-30(5%)
+	   poputrem	1-10(70%) 20-30(10%)
+	   cercledi	1-50(70%)
+	   toleresp	1-60(90%)
+	   intoresp	1-60(90%)
+	   nonnseed	1-80(90%)
+	   fixnresp	1-80(90%)
+		
+
+Prescription	FS-MoistMixed
+	StandRanking 	Economic
+	>> Species Economic Rank Minimum Age
+	>> ------- ------------- -----------
+  	   pseumenz	75 		40	   
+	   abiegran   	95 		40
+	
+	SiteSelection	Complete
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	1-60(40%) 70-140(70%)
+	   abiegran	1-150(80%)
+	   juniocci	1-150(90%)
+	   pinucont	1-150(90%)
+	   pseumenz	1-60(50%) 70-140(80%)
+           lariocci	1-60(40%) 70-140(70%)
+
+
+Prescription	FS-PreCommercial  <<includes Rx fire following harvest & after 10 years
+	StandRanking	FireHazard
+	>> Fuel Type	Fuel Type Rank
+	>> ---------	-------------
+		1	90  << young mixed conifer age 0-40
+		2	50  << mid-aged mixed conifer age 41-80
+		3	20  << old mixed conifer age 81-1000
+		4	80  << young larch/ponderosa/douglas age 0-40
+		5	30  << mid-aged larch/ponderosa/douglas age 41-80
+		7	55  << dense lodgepole stands of any age
+		8	85  << riparian fuels of aspen, grand fir and shrubs
+		9	85  << young aspen stands
+		10	85  << old aspen stands
+		
+		>> old larch/ponderosa/douglas, mountain mahogany, shrub and open fuel types have a rank of 0
+
+	
+	SiteSelection	Complete
+>>	MinTimeSinceDamage	10
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	1-10 (99%) 20-30(80%)
+	   abiegran	1-10 (99%) 20-40(80%)
+	   juniocci	1-10 (99%) 20-50(80%)
+	   pinucont	1-10 (99%) 20-60(80%)
+	   pseumenz	1-10 (99%) 20-30(80%) 
+           lariocci	1-10 (99%) 20-30(80%)
+	   
+	>> Immediate RxBurn
+	>>--------	---------------------	
+	   piceenge	1-10 (99%) 20-30(5%)
+	   pinualbi	1-10 (99%) 20-30(5%)
+	   poputrem	1-10 (99%) 20-30(10%)
+	   cercledi	1-50 (99%)
+	   toleresp	1-60 (99%)
+	   intoresp	1-60 (99%)
+	   nonnseed	1-80 (99%)
+	   fixnresp	1-80 (99%)	  
+	
+	SingleRepeat	10 << RxBurn after 10 years
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	1-10(50%) 20-30(5%) 40-50(2%)
+	   abiegran	1-20(60%) 30-50(5%) 60-80(2%)
+	   juniocci	1-50(60%) 60-80(2%)
+	   pinucont	1-10(70%) 20-30(20%) 40-60(2%) 
+	   pseumenz	1-10(60%) 20-30(5%) 40-50(2%)
+           lariocci	1-10(50%) 20-30(5%) 40-50(2%)
+	   piceenge	1-10(70%) 20-30(5%)
+	   pinualbi	1-10(70%) 20-30(5%)
+	   poputrem	1-10(70%) 20-30(10%)
+	   cercledi	1-50(70%)
+	   toleresp	1-60(90%)
+	   intoresp	1-60(90%)
+	   nonnseed	1-80(90%)
+	   fixnresp	1-80(90%)
+
+			
+Prescription	FS-RxFireOnly
+	StandRanking	FireHazard
+	>> Fuel Type	Fuel Type Rank
+	>> ---------	-------------
+		1	90  << young mixed conifer age 0-40
+		2	50  << mid-aged mixed conifer age 41-80
+		3	20  << old mixed conifer age 81-1000
+		4	80  << young large/ponderosa/douglas age 0-40
+		5	30  << mid-aged larch/ponderosa/douglas age 41-80
+		6	10  << old larch/ponderosa/douglas fir age 81-1000
+		7	55  << dense lodgepole stands of any age
+		8	85  << riparian fuels of aspen, grand fir and shrubs
+		9	85  << young aspen stands
+		10	85  << old aspen stands
+		
+		>> mountain mahogany, shrub and open fuel types have a rank of 0
+
+	SiteSelection	Complete
+>>	MinTimeSinceDamage	10
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	1-10(60%) 20-30(5%) 40-50(2%)
+	   abiegran	1-20(60%) 30-50(5%) 60-80(2%)
+	   juniocci	1-50(60%) 60-80(2%)
+	   pinucont	1-10(70%) 20-30(20%) 40-60(2%) 
+	   pseumenz	1-10(60%) 20-30(5%) 40-50(2%)
+           lariocci	1-10(60%) 20-30(5%) 40-50(2%)
+	   piceenge	1-10(70%) 20-30(10%)
+	   pinualbi	1-10(70%) 20-30(10%)
+	   poputrem	1-10(70%) 20-30(15%)
+	   cercledi	1-50(70%)
+	   toleresp	1-60(90%)
+	   intoresp	1-60(90%)
+	   nonnseed	1-80(90%)
+	   fixnresp	1-80(90%)
+
+
+
+
+Prescription	BLM-Timber
+	StandRanking	Economic
+	>> Species Economic Rank Minimum Age
+	>> ------- ------------- -----------
+  	   pinupond   	80		40
+	   pseumenz	75 		40  
+	   abiegran	70		40	   
+
+	SiteSelection	Complete	 << There are an average of 3 280ha timber sales and 2 100ha stewardship contracts per decade
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	1-60(50%) 70-140(60%)
+	   abiegran	1-140(90%)
+	   juniocci	1-140(90%)
+	   pinucont	1-140(90%)
+	   pseumenz	1-60(60%) 70-140(90%)
+           lariocci	1-60(20%) 70-140(60%)
+
+
+
+
+Prescription 	Private-Timber
+	StandRanking 	Economic
+	>> Species Economic Rank Minimum Age
+	>> ------- ------------- -----------
+  	   pseumenz	75 		40
+  	   pinupond   	70		40
+	   lariocci	65		40   	   
+	   abiegran   	50 		40
+	
+	SiteSelection	Complete
+	CohortsRemoved	SpeciesList
+	>> Species	Selection
+        >> -------      ----------
+	   pinupond	AllExceptYoungest
+	   pseumenz	AllExceptYoungest
+	   abiegran	Oldest
+	   lariocci	Oldest
+
+>>Prescription	ODF-Timber
+	
+
+
+
+>>-----------------------------------------------------------------
+>> PRESCRIPTION IMPLEMENTATION 
+
+    HarvestImplementations
+>>  Mgmt Area   Prescription    		Harvest Area    Begin Time  End Time
+>>  ---------   ------------    		------------    ----------  --------
+	3	FS-PIPO				6%		0	    100 << goal is 13,000 ha (3250 cells)
+	3	FS-DryMixed			6%		0	    100 << goal is 13,000 ha (3250 cells)
+	3	FS-MoistMixed			6%		0  	    100 << goal is 13,000 ha (3250 cells)
+	3	FS-PreCommercial		8%		0  	    100 << goal is 13,000 ha (3250 cells)
+	3	FS-RxFireOnly			9%		0	    100 << goal is 22,000 ha (5500 cells << Extra RxFire Scenario only
+	2	BLM-Timber			14%		0	    100	<< goal is 1,040 ha (260 cells)						
+	4	Private-Timber			3%		0	    100
+	6	BLM-Timber			20%		0	    100 << there isn't much area to harvest in ODF land
+>>	7	FS-RxFireOnly			20%		0	    100  << Riparian Treatment Scenario only, 50 year rotation
+>>	7	FS-PIPO				20%		0	    100	 << Riparian Treatment Scenario only, 50 year rotation
+>>-----------------------------------------------------------------
+>> OUTPUTS
+
+PrescriptionMaps    harvest/prescripts-{timestep}.img
+BiomassMaps         harvest/biomass-removed-{timestep}.img
+EventLog            biomass-harvest-event-test-log.csv
+SummaryLog	    biomass-harvest-summary-log.csv
