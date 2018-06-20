@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExtensionDataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Extensions>
+    <Extension Name="Output Biomass" Version="2.2">
+      <Type>output</Type>
+      <Assembly>Landis.Extension.Output.Biomass</Assembly>
+      <Class>Landis.Extension.Output.Biomass.PlugIn</Class>
+      <Description>Output biomass maps</Description>
+    </Extension>
+    <Extension Name="Dynamic Biomass Fuels" Version="2.2">
+      <Type>disturbance:fuels</Type>
+      <Assembly>Landis.Extension.BiomassFuels</Assembly>
+      <Class>Landis.Extension.BiomassFuels.PlugIn</Class>
+      <Description>Dynamic Fuel assignment extension using Biomass</Description>
+    </Extension>
+    <Extension Name="Output Biomass Reclass" Version="2.0">
+      <Type>output</Type>
+      <Assembly>Landis.Extension.Output.BiomassReclass</Assembly>
+      <Class>Landis.Extension.Output.BiomassReclass.PlugIn</Class>
+      <Description>Output forest reclassification maps using biomass</Description>
+      <UserGuide>LANDIS-II Biomass Reclass Output v2.0 User Guide.pdf</UserGuide>
+    </Extension>
+    <Extension Name="Biomass Harvest" Version="3.1">
+      <Type>disturbance:harvest</Type>
+      <Assembly>Landis.Extension.BiomassHarvest</Assembly>
+      <Class>Landis.Extension.BiomassHarvest.PlugIn</Class>
+      <Description>Harvesting for biomass cohorts</Description>
+    </Extension>
+    <Extension Name="NetEcosystemCN Succession" Version="4.2">
+      <Type>succession</Type>
+      <Assembly>Landis.Extension.Succession.NetEcosystemCarbonNitrogen</Assembly>
+      <Class>Landis.Extension.Succession.NetEcosystemCN.PlugIn</Class>
+      <Description>Succession with complete Carbon and Nitrogen Cycling</Description>
+      <UserGuide>LANDIS-II Net Ecosystem CN Succession v4.1 User Guide.pdf</UserGuide>
+    </Extension>
+    <Extension Name="Biomass Succession" Version="4.0">
+      <Type>succession</Type>
+      <Assembly>Landis.Extension.Succession.Biomass</Assembly>
+      <Class>Landis.Extension.Succession.Biomass.PlugIn</Class>
+      <Description>Succession with biomass cohorts</Description>
+    </Extension>
+    <Extension Name="Dynamic Fuel System" Version="2.1">
+      <Type>disturbance:fuel</Type>
+      <Assembly>Landis.Extension.DynamicFuels</Assembly>
+      <Class>Landis.Extension.DynamicFuels.PlugIn</Class>
+      <Description>Dynamic Fire Fuel System</Description>
+    </Extension>
+    <Extension Name="Dynamic Fire System" Version="3.0">
+      <Type>disturbance:fire</Type>
+      <Assembly>Landis.Extension.DynamicFire</Assembly>
+      <Class>Landis.Extension.DynamicFire.PlugIn</Class>
+      <Description>Dynamic Fire System</Description>
+      <UserGuide>LANDIS-II Dynamic Fire System v2.0.3 User Guide.pdf</UserGuide>
+    </Extension>
+  </Extensions>
+</ExtensionDataset>
