@@ -1,0 +1,67 @@
+LandisData  "Dynamic Biomass Fuels"
+
+>> Using Pep's Klamath files as a starting place
+
+Timestep  1
+
+>> Species Fuel Coefficients (default value 1 if not listed)
+>> 		 Fuel 
+>> Species 	 Coefficient 
+>> -------- 	 ----------- 
+
+HardwoodMaximum 20 << required (at least 1/5 trees should be poputrem and/or shrubs (non-sagebrush) for the cell to be classified as mixed-wood
+
+DeadFirMaxAge 25 << required
+
+FuelTypes
+
+>> Fuel Base	Age Range	Species
+>> Type	Type
+>> ---  ------	---------	----------------------------------------
+   1	Conifer	0 to 40		abiegran abielasi juniocci  piceenge pinualbi pinucont  << young mixed conifer - from SN
+   2	Conifer	41 to 80	abiegran abielasi juniocci  piceenge pinualbi pinucont  << mid-aged mixed conifer - from SN
+   3	Conifer	81 to 1000	abiegran abielasi juniocci  piceenge pinualbi pinucont  << old mixed conifer - from SN
+
+   4	Conifer	0 to 40		lariocci pinupond pseumenz << young pine - from SN pine/white fir
+   5	Conifer	41 to 80	lariocci pinupond pseumenz << mid-aged pine - from SN pine/white fir
+   6	Conifer	81 to 1000	lariocci pinupond pseumenz << old pine - from SN pine/white fir
+
+   7    Conifer 0 to 1000       pinucont << dense lodgepole pine stands of any age
+
+   8    Conifer 0 to 1000       poputrem fixnresp toleresp intoresp abiegran << trying to capture riparian area fuels
+	
+
+  9	Deciduous 0 to 40	poputrem << young deciduous - from SN
+  10	Deciduous 41 to 1000	poputrem << old deciduous - from SN
+
+  11	Deciduous 0 to 1000	cercledi << oak - from NJ oak upland (TL6)
+
+  12	Conifer  0 to 1000	toleresp intoresp nonnseed fixnresp << shrubs (from Pep, oak - from NJ oak upland (TL6))
+
+  31    Open     0 to 1000      juniocci  nonnseed << (open, young juniper and sagebrush - Brooke)
+  32    Open     0 to 100	invsgrss << (open grasslands with primarily cheatgrass - carry fire)
+  33    Open     0 to 100	natvgrss << (open grassland with primarily native bunchgrasses - patchy fire)
+
+
+
+>> Unused fuel types from Pep
+>>   7	Conifer	0 to 40		ChamLaws SequSemp ThujPlic TsugHete << young cedar/hemlock/sequoia - from SN young sequoia
+>>   8	Conifer	41 to 80	ChamLaws SequSemp ThujPlic TsugHete << mid-aged cedar/hemlocksequoia - from SN mid-aged sequoia
+>>   9	Conifer	81 to 1000	ChamLaws SequSemp ThujPlic TsugHete << old cedar/hemlocksequoia - from SN old sequoia
+>>  14	Conifer  0 to 1000	FX_Resp_Evergreen FX_Seed_Evergreen NoFX_Resp_Evergreen NoFX_Seed_Evergreen << oak - from NJ oak upland (TL6)
+
+
+
+DisturbanceConversionTable
+>> Fuel Type	Duration       Disturbance Description
+>> ---------	---------	--------
+	21	25		FS-PIPO                         <<Removes most mixed conifer, Rx burn 10 years later
+	21	20		FS-DryMixed		    	<<Removes most commercial sizes, Rx burn 10 years later leaves older conifers of all species
+	20	20		FS-PreCommercial FS-RxFireOnly  <<Removes small diameter materials and reduces likelihood of fire spread 
+
+MapFileNames		DFFS-output/FuelType-{timestep}.img  
+
+
+PctConiferFileName fire/PctConifer-{timestep}.img
+
+PctDeadFirFileName fire/PctDeadFir-{timestep}.img

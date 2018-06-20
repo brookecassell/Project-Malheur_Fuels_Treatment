@@ -1,0 +1,385 @@
+>> Entire Landscape - NECN file - base climate scenario
+>> This version fixes incorrect GDD values for piceenge and pinualbi 11/10/2016
+>> THis version adjusts Functional Group parameters (temperature curves) 2/24/2017
+	>> adds Abies_mesic functional group for high elevation conifers, 
+	>> and adjusts ANPP numbers for shrubs (down), grasses (up slightly) and some tree species
+>> This version adjusts Denitriff from 0.001 to 0.004 across ecoregions (previous Nvol was a little low - I'm aiming for 0.2) 2/28/2017
+	>> adjusts Decay Rate SOM1 from 0.1 to 0.3 (C_SOM1Soil was about 3x too high in Year 0 as compared with input values)
+	>> decreases MonthlyMaxNPP for several species, and adjusts moisture curves (PPRPTS2 and PPRPTS3 in Functional Group Parameters)
+>> This version adjusts SpinupMortalityFraction from 0.00004 ot 0.0001 to bring overall biomass down a bit,
+	>> and widens temperature curves to make all species (except high elevation conifers) less sensitive to temp (so soil moisture has more impact on growth than temp)
+	>> Also changed moisture curve for hardwood_mesic to respond to higher levels of moisture
+
+>> 03/07/2017 This version tests spinup mortality by changing it from 0.0001 to 0.001 to try and bring Year 0 AGB down
+>> 03/09/2017 This version uses spinup mortality of 0.0007.
+
+>> 03/21/2017 Reflects updated MaxBiomass values and updated KLAI and MAXLAI (Functional Group Parameters). Also updates SpinupMortalityFraction to 0.00004
+>>	and monthlywoodmort to 0.0001
+
+>> 04/26/2017 DeadWoodC is still a tad high, so this version keeps monthylywoodmort at 0.0001 for mesic functional groups and reduces it to 0.00009 for dry functional groups.
+>> 04/26/2017 DeadWoodC increases over time instead of staying stable, so increasing DecayRateSurf to 0.5 across ecoregions to see if that stabalizes it and how that impacts C in each soil pool.
+>> 04/27/2017 Same issue as yesterday, and increasing DecayRateSurf appears to have little impact. This run decreases DecayRateSOM1 from 0.3 to 0.2.
+>> 04/28/2017 Issue is still the same, plus species biomass is showing some large deviations from input, so for tonight's run I'm leaving prior settings as they were yesterday, 
+>> 	and modifying MaxMonthlyANPP for species that are too high (PIPO, PSME, JUOC, LAOC, ABGR) and up for species that are too low (ABLA)
+>> 04/30/2017 Needs more to decrease overall biomass and adjust soil C pools. This version increases DecayRateSurf to 0.6, increases DecayRateSOM1 to 0.5 (to decrease C), and decreases Decay RateSOM2 to 0.09 (to increase C)
+>> 5/1/2017 Two changes - increase spinup mortality from 0.00004 to 0.00006 to decrease overall AGB (still around 10,000 and shooting for 6,000). And
+>>	increase DecayRateSOM1, which is still high, to 0.6 to push more C to SOM2, which is still low.
+>> 5/2/2017 Again, increasing DecayRateSurf, this time to 0.8, and DecayRateSOM1, this time to 0.8, as they are still too high, and decreasing DecayRateSOM2 to 0.06 (to increase C).
+>>	Also decreasing maxBiomass for PIPO, PSME and ABGRC, which are all still way too high, especially PIPO, which is about 2x too high after spinup as compared with GNN.
+>> 5/3/2017 Decrease DecayRateSOM2 to 0.03 (to increase C). Decreased MaxBiomass for PIPO to 10000, ABGR to 20000, and PSME to 10000, JUOC to 2500, & LAOC to 10000
+>>	Also dropped MaxANPP for PIPO to 125, lower than PSME.
+>> 5/4/2017 Set Max Biomass at the 95th %ile for each species. It's actually lower than I'd previously estimated for all species.
+>> 5/5/2017 Biomass is looking much better. Slight decrease to PIPO and ABGRC. Increase Woody Decay Rate to 0.1 across functional groups.
+>> 5/8/2017 Increased woody decay rate to 0.15 across functional groups, as dead wood is still accumulating over time. Also adjusted ANPP for PIPO, PSME & ABGRC
+>> 5/9/2017 I'm happy with the accumulation and decay of dead wood, so I'm keeping Woody Decay Rate at 0.15 across functional groups. This run sets
+>>	Max Biomass at 90th%ile for ABGR, JUOC, PIPO and PSME, 95th %ile for all other species.
+>> 5/10/2017 Small tweaks: Raised PSME MaxMonthlyANPP to 175, Lowered PIPO maxBiomass to 7500, raised WoodyDecay Rate to .2
+>> 5/11/2017 More small tweaks: raise spinup mortality to 0.0001 to create a greater amount of dead wood in year 1. Keep WoodyDecay Rate at .2
+>>	Increased maxBiomass for underperforming species, and decreased it for overperforming species.
+>> 5/12/2017 Everything is looking pretty good except some small individual species biomass numbers. 
+>> 5/14/2017 Additional minor MaxBiomass adjustments and ANPP adjustments
+>> 5/15/2017 Biomass is looking pretty good, but there is still too low of deadwoodC at year 0, climbing until year 40, when it evens out. Upping spinup mortality to 0.0002
+>> 6/1/2017  Adjusting temp/moisture curves.
+>> 6/2/2017  Adjusting temp/moisture curves based on last night's run. Also making minor adjustments to ANPP for most species.
+>> 6/5/2017  Small adjustments to ANPP for some species. ANPP at 1,000 for cercledi & poputrem, because they are both approx. 95% low at year 0.
+>> 6/6/2017  More adjustments to ANPP - PIPO & ABGR, ABLA, & PICO are still a bit low. I'm not sure why CELE & POTR are still wayyyyyy low...
+>> 6/7/2017  Minor ANPP adjustments to ABLA, PICO & PIAL - changed KLAI to 2000 for CELE & POTR to speed up their growth, because they're just not competing
+>> 6/8/2017  Minor ANPP adjustments to ABLA, PICO & PIAL, PIPO & ABGR, change KLAI to 20 for CELE & POTR
+>> 6/8/2017  CELE & POTR are still ridiculously low. Trying to up the MaxLAI to 9 (POTR5) and 7 (CELE) and see if that will help.
+>> 6/13/2017 KLAI for Conifers_dry from 50,000 down to 30,000 to speed up growth a bit. Conifers_high from 30,000 down to 20,000 to speed up growth a bit.
+>>		MaxLAI up to 10 for cercledi & 8 for poputrem to speed up growth a bit. 2nd Run of the day - adjusted ANPP up for slow growing species.
+>> 6/14/2017 Final adjustments to ANPP for abielasi, pinualbi & pinucont.
+
+LandisData	"NECN Succession"
+
+Timestep 10
+
+SeedingAlgorithm 	WardSeedDispersal 
+
+InitialCommunities     Malheur_IC_text_2016-03-09.txt  << contains tree, regen and shrub cohorts
+InitialCommunitiesMap     mapcodes4ha1.img
+
+ClimateConfigFile 		"ClimateConfigFile.txt"
+
+CalibrateMode	no << (yes/no) Calibrate mode assumes no disturbances and runs the months 1 - 12.
+
+SpinupMortalityFraction             0.0002
+	<<  ML: This controls the amount of mortality during spin-up. Use this to control the initial biomass. Mine is 0.00075 for AFRI.  Adjust during calibration.
+	<< Pep: OK
+
+WaterDecayFunction Linear <<Linear or Ratio => we chose ratio because we want the ratio of rainfall to potential evapotranspiration to determine the effect of moisture of decay rates, e.g. Megan optioN
+	<<ML: I've had better luck using Linear, but I don't remember why anymore.  I think if I set it to ratio, the model wasn't very responsive to SM. 
+	<< Pep: OK, let's change it
+
+ProbEstablishAdjust 0.4 
+	<< ML: consider it higher, I have 0.4
+	<< Pep: changed
+
+
+  ANPPMapNames		necn/ag_npp-{timestep}.img
+  ANPPMapFrequency	10
+>> SoilCarbonMapNames	necn/soc-{timestep}.img
+>> SoilCarbonMapFrequency	5
+>> SoilNitrogenMapNames	necn/son-{timestep}.img
+>> SoilNitrogenMapFrequency	5	
+   ANEEMapNames		necn/nee-{timestep}.img
+   ANEEMapFrequency	10
+
+   TotalCMapNames		necn/totalc-{timestep}.img  << Pep: I do not see this table in the last version of CENTURY succession
+   TotalCMapFrequency	10
+
+AvailableLightBiomass  << ***3/1/16 These are currently all set to the same levels, as per Pep. ***
+>> Available Relative Biomass
+>> Light by Ecoregions (5)
+>> Class
+>> ---------- --------------------
+	eco101	eco102	eco103	eco104	eco105	eco201	eco202	eco203	eco204	eco205	eco301	eco302	eco303	eco304	eco305	eco401	eco402	eco403	eco404	eco405	eco501	eco502	eco503	eco504	eco505	
+1	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	10%	
+2	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	20%	
+3	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	40%	
+4	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	65%	
+5	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	95%	
+
+
+		
+
+LightEstablishmentTable	 << *** Leaving these the same as Pep's for now. This is the same as Louise's ***
+						
+>>	Spp Shade	Probability					
+>>	Class		by Actual Shade					
+>>	 ----------	--------------------					
+>>			0	1	2	3	4	5
+	1		1.0	0.5	0.02	0.0	0.0	0.0
+	2		0.6	1.0	0.5	0.02	0.0	0.0
+	3		0.01	0.6	1.0	0.5	0.02	0.0
+	4		0.0	0.01	0.6	1.0	0.5	0.02
+	5		0.0	0.0	0.01	0.5	1.0	1.0
+
+
+SpeciesParameters  << Brooke: I adjusted the GNN Min, GDD Max and Min Jan Temp based on the Vegetation Atlas of N America. Other values are taken from Pep, Megan and Melissa
+			
+>>Species	Leaf	Woody	Mortality Curve	Leaf				
+>>		Long	DecayR	Shape Parameter	Lignin%				
+>>----------------------------------------------								
+>> Species  Funct	N	GDD	GDD	Min	Max	Leaf	Epi-	Leaf	FRoot	Wood	CRoot	Leaf  	FRoot 	Wood  	CRoot 	Littr 	
+>>	    ional	Fixer	Min	Max	Jan	Drought	Long	cormic	Lign%	Lign%	Lign%	Lign%	CN    	CN    	CN    	CN    	CN	
+>> 	    Type				Temp			re-
+>>          								sprout
+>>          			
+abiegran	1	N	500	2450	-9	0.7	7.5	N	0.25	0.22	0.29	0.32	42	27	400	80	77 << MEGAN
+abielasi	7	N	300	1950	-23	0.7	7.6	N	0.25	0.22	0.3	0.35	42	27	400	80	77 << For now, from Max Drought copied from abiegran
+cercledi	4	Y	230	3150	-10	0.9	2	N	0.25	0.255	0.255	0.255	25	42	400	90	45 << FEIS, Veg Atlas of N. Amer
+juniocci	9	N	750	3150	-10	0.9	5	N	0.25	0.2	0.35	0.35	50	39	400	170	100 << FEIS, Veg Atlas of N. Amer, copied from pice for now
+lariocci	2	N	550	1750	-10	0.7	1	N	0.297	0.225	0.25	0.204	20.7	26	600	50	74  << leaf lignon & leaf CN from Foliar Chemistry Database. Other values from Melissa LARILARI
+piceenge	7	N	250	2200	-7	0.7	7.8	N	0.131	0.26	0.29	0.35	50	39	400	170	97  << MEGAN from Picea sitchensis, except leaf lignin & CN Litter (from white spruce in Rockies)
+pinualbi	7	N	200	1650	-18	0.90	6.5	N	0.27	0.2	0.29	0.25	50	27	333	222	100 << LOUISE 
+pinucont	1	N	300	2650	-22	0.87	5.5	N	0.25	0.2	0.28	0.33	50	27	500	212	100 << LOUISE
+pinupond	8	N	500	5500	-9	0.85	4.8	N	0.24	0.23	0.28	0.276	50	47	500	217	75  << PEP
+poputrem	3	N	350	3900	-28	0.82	1	Y	0.141	0.255	0.18	0.255	21.5	62	333	90	78.13 << LOUISE to start, + lit values
+pseumenz	2	N	300	4750	-12	0.8	8	N	0.205	0.30	0.29	0.33	45	36	400	189	77.25  << MEGAN to start + lit values
+toleresp	5	N	300	5000	-10	0.97	1	Y	0.25	0.2	0.25	0.25	59	59	80	222	100 << LOUISE -- Primarily deciduous
+intoresp	5	N	300	5000	-10	0.97	1	Y	0.25	0.2	0.25	0.25	59	59	80	222	100 << LOUISE -- Primarily deciduous
+nonnseed	6	N	300	5000	-10	0.97	5	N	0.25	0.2	0.25	0.25	59	59	80	222	100 << LOUISE -- Almost all evergreen, primarily Artemisia spp.
+fixnresp	6	Y	300	5000	-10	0.99	1	Y	0.25	0.2	0.25	0.25	20	30	80	222	50  << LOUISE -- These are all broadleaf species, and all but one are deciduous (Ceanothus velutinus)
+natvgrss	5	N	300	2000	-15	0.99	1	Y	0.15	0.15	0.0	0.0	20	20	5	5	20
+invsgrss	5	N	100	5000	-15	0.99	1	Y	0.15	0.15	0.0	0.0	20	20	5	5	20
+
+	
+
+
+	<<ML: your coarse root CN is at least twice more than all mine.  Mine avg more like 80.	
+	<<Pep: Megan documented that though
+	<<Pep : Changed CR CN to 80
+					
+	<< Pep: Potentially use one of the categories from Louise's shrubs, the issue is that how to categorize the Chaparral in therms of N fixing or not, Right now I added it as SHRUB  N FIXING  SEEDER as in Louise			
+	<< Pep: as of now, all shrubs are lumped together in terms of functional types, but we should be able to change maybe according to deciduous or evergreen. I changed leaf longevity to values as in other evergreen sp.
+	<< Pep: I am not entirely sure about the shrubs, the basis is Louise's, but I have change them to be more consistent with Megans', for instance, to make GDD within the same range. 
+
+FunctionalGroupParameters 
+
+>> Name		Index	PPDF1	PPDF2	PPDF3	PPDF4	FCFRAC	BTOLAI	KLAI	MAXLAI	PPRPTS2	PPRPTS3	Woody	Monthly	Age	Leaf	CRoot	FRoot
+>> 			T-Mean	T-Max	T-shape	T-shape	leaf						Decay	Wood	Mort	Drop	Frac	Frac
+>>													Rate	Mort	Shape	Month
+Conifers_mesic	1	19	38	.9	6	0.3	-0.8	22000	12	2.0	0.7	0.2	0.00015	15	9	0.3	0.76	
+Conifers_dry	2	20	40	.9	6	0.3	-0.8	30000 	12	0.9	0.6	0.2	0.000095	15	9	0.3	0.76	
+Hardwood_mesic	3	17	36	.5	10	0.32	-0.8	20	10	1.7	0.6	0.2	0.00015	15	9	0.3	0.76	
+Hardwood_dry	4	20	40	0.8	6	0.32	-0.8	20	8	0.8	0.5	0.2	0.000095	15	9	0.3	0.76	
+Shrub_mesic	5	18	35	.9	7	0.3	-0.8	2000	5	2.0	0.7	0.2	0.00015	15	9	0.3	0.76
+Shrub_dry	6	20	40	.7	7	.32	-0.8	2000	8	0.6	0.6	0.2	0.000095	15	9	0.3	0.76
+Conifers_high	7	17	30	.8	5	0.3	-0.8	20000	11	1.8	0.65	0.2	0.00015	15	9	0.3	0.76	  
+Ponderosa_pine	8	22	40	.8	5	0.3	-0.8	50000 	10	1.5	0.72	0.2	0.000095	15	9	0.3	0.76	
+Juniper		9	21	40	.8	5	0.3	-0.8	50000 	5	0.9	0.5	0.2	0.000095	15	9	0.3	0.76	
+>> Note:  The on-line Century guide and default parameters suggest MaxLAI = 20.0
+
+
+	<<ML: I would set the AgeMortShape to always be 15.  
+	<<Pep: Changed  
+
+	<<ML: I think your root fractions are really high for the fine roots.  I'd take another look at them. == PEP ... ok re-check Megans'
+	<<Pep: Megan has not documented these parameters. I am curently researching about this but you can lower that if you have a better feeling about this. I think FRoot should be largely, but maybe only double as a maximum?
+
+
+	<< Pep: See I added two more 'functional groups'. We differenciate, within the conifers, those species that tend to occur at higher elevations. I am happy to change that, but JT said he'd have that as a possibility. We could also change that.
+
+
+InitialEcoregionParameters
+
+
+>> Brooke: I got SOM from ORNL website. 
+>> 	SOM1	SOM1	SOM1	SOM1	SOM2	SOM2	SOM3	SOM3	Minrl
+>> 	C	N	C	N	C	N	C	N	N
+>> 	surf	surf	soil	soil					
+
+eco101	21	2	43	4	1255	72	808	95	2
+eco102	24	2	48	5	1426	81	918	108	3
+eco103	25	3	51	5	1496	85	963	113	3
+eco104	25	3	50	5	1479	85	953	112	3
+eco105	26	3	51	5	1507	86	970	114	3
+eco201	21	2	43	4	1255	72	808	95	2
+eco202	24	2	48	5	1426	81	918	108	3
+eco203	25	3	51	5	1496	85	963	113	3
+eco204	25	3	50	5	1479	85	953	112	3
+eco205	26	3	51	5	1507	86	970	114	3
+eco301	21	2	43	4	1255	72	808	95	2
+eco302	24	2	48	5	1426	81	918	108	3
+eco303	25	3	51	5	1496	85	963	113	3
+eco304	25	3	50	5	1479	85	953	112	3
+eco305	26	3	51	5	1507	86	970	114	3
+eco401	21	2	43	4	1255	72	808	95	2
+eco402	24	2	48	5	1426	81	918	108	3
+eco403	25	3	51	5	1496	85	963	113	3
+eco404	25	3	50	5	1479	85	953	112	3
+eco405	26	3	51	5	1507	86	970	114	3
+eco501	21	2	43	4	1255	72	808	95	2
+eco502	24	2	48	5	1426	81	918	108	3
+eco503	25	3	51	5	1496	85	963	113	3
+eco504	25	3	50	5	1479	85	953	112	3
+eco505	26	3	51	5	1507	86	970	114	3
+
+
+
+	
+EcoregionParameters
+
+>>	Soil	Percent	Percent	Field	Wilt	StormF	BaseF	Drain	Atmos	Atmos	Lat-	Decay   Decay  Decay	Decay  Denitrif
+>>	Depth	Clay	Sand	Cap	Point	Fract	Fract		N	N	itude	Rate    Rate   Rate     Rate
+>>      cm	frac	frac						slope	inter		Surf    SOM1   SOM2	SOM3
+eco101	100	0.28	0.36	0.22	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004  << for all ecoregions, StormF Frac -> Denitrif are constants from Pep's. Need to research those more
+eco102	100	0.27	0.38	0.25	0.14	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03    0.0003	0.004  << but Percent Clay, Percent Sand, Field Cap and Wilting Point are calculated from MC2 Soils data 
+eco103	100	0.22	0.36	0.26	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004  << which is a combination of the best data available (SSURGO, STATSGO2)
+eco104	100	0.22	0.32	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco105	100	0.19	0.29	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004  << As of 2/24/2017, I reduced DecayRateSOM1 from 0.35 to 0.3 to try and reduce my C_SOM1_soil and increase C_SOM2
+eco201	100	0.28	0.36	0.22	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco202	100	0.27	0.38	0.25	0.14	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco203	100	0.22	0.36	0.26	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco204	100	0.22	0.32	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco205	100	0.19	0.29	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco301	100	0.28	0.36	0.22	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco302	100	0.27	0.38	0.25	0.14	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco303	100	0.22	0.36	0.26	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco304	100	0.22	0.32	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco305	100	0.19	0.29	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco401	100	0.28	0.36	0.22	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03    0.0003	0.004
+eco402	100	0.27	0.38	0.25	0.14	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco403	100	0.22	0.36	0.26	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco404	100	0.22	0.32	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco405	100	0.19	0.29	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco501	100	0.28	0.36	0.22	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco502	100	0.27	0.38	0.25	0.14	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco503	100	0.22	0.36	0.26	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco504	100	0.22	0.32	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+eco505	100	0.19	0.29	0.28	0.12	0.2	0.2	1	0.0013	0.001	44	0.8	0.8	0.03	0.0003	0.004
+
+
+
+	<< Brooke: Just as Pep's, these values correspond to my 5 different ecoregions, which are represented by the last digit of the ecoregion code.
+	<< Pep These values correspond to the different soil ecoregions (the last digit of the ecoregion code). 
+	<< Pep Values of StormF fract BaseF Fract are copied from Megans (ML used 0.1) but apparently this is to be adjusted during calibrations 
+	<< Pep: Values for Decay rates and Denitrif are from Megans too, basd on one of her ecoregions. Apparently to be adjusted during single-cell simulations 
+
+
+FireReductionParameters
+>>	Severity 	Wood	Litter <<  *** 3/1/16 copied from Pep's	***						
+>>	Number		Reduc	Reduc												
+>>	-------		------	-----												
+	1		0.0	0.5
+	2		0.05	0.75
+	3		0.2	1.0
+	4		0.5	1.0
+	5		0.8	1.0
+
+
+
+
+
+MonthlyMaxNPP << PRDX(3) from Century 4.0 (g aboveground Biomass / m2/mo.)
+
+>> Species Ecoregions
+>> -------- ------------------
+	
+		eco101	eco102	eco103	eco104	eco105	eco201	eco202	eco203	eco204	eco205	eco301	eco302	eco303	eco304	eco305	eco401	eco402	eco403	eco404	eco405	eco501	eco502	eco503	eco504	eco505	
+abiegran	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110		
+abielasi	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	 <<Silvics Manual "not rapid" (increased from 120 to 125 4/28/2017)
+cercledi	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000
+juniocci	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110 
+lariocci	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250	250 <<Melissa's for larilari is 250 
+piceenge	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	145	
+pinualbi	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400 <<Silvics Manual "slow growing"
+pinucont 	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900	900								  
+pinupond	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	<<(decreased from 190 to 175 4/28/2017; decreased to 125 5/3/2017; decreased to 120 5/8/2017)
+poputrem	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	 <<estimated from Lucash (MN)
+pseumenz	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	190	<<"1/2 of lariocci" (Silvics Manual) but I find it needs to be a bit higher.
+toleresp	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35 << Hanson et. al 2000
+intoresp	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35 << Hanson et. al 2000
+nonnseed	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35 << Hanson et. al 2000
+fixnresp	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35 << Hanson et. al 2000
+natvgrss	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35 << Hanson et. al 2000
+invsgrss	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35	35 << Hanson et. al 2000
+
+>> Brooke: Below are Pep's - keeping now for reference
+
+>>ALRU2		45	0	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400
+>>CADE27	60	0	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125
+>>PSME		90	0	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150	150
+>>ACMA3		30	0	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400	400
+>>ARME		135	0	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450
+>>LIDE3		135	0	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450
+>>CHCH7		105	0	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500	500
+>>QUGA4		105	0	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450
+>>QUCH2		105	0	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450
+>>QUKE		105	0	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450	450
+>>PIPO		75	0	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110
+>>PILA		75	0	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110
+>>PIMO3		75	0	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125	125
+>>ABGRC		75	0	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110
+>>ABPRSH	75	0	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110	110
+>>FX_Resp_Deciduous	105	35	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425
+>>NoFX_Resp_Deciduous 	105	35	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425
+>>FX_Seed_Deciduous	105	35	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425
+>>NoFX_Seed_Deciduous	105	35	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425
+>>FX_Resp_Evergreen	105	35	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425
+>>NoFX_Resp_Evergreen	105	35	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425
+>>FX_Seed_Evergreen	105	35	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425
+>>NoFX_Seed_Evergreen	105	35	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425	425
+
+<< Pep: I arbitrarily set Max Biomass and Max ANPP in the ecoregion 2(serpentine forest) and ecoregion 3 (serpentine shrubs) as the 30% and 10% of the max biomass. Need to get some data to make those numbers more realistic, but we will see.
+
+
+											
+
+MaxBiomass << (g Biomass / m2) 
+
+>>	Species	Ecoregions																	
+>>	--------------------------
+
+		eco101	eco102	eco103	eco104	eco105	eco201	eco202	eco203	eco204	eco205	eco301	eco302	eco303	eco304	eco305	eco401	eco402	eco403	eco404	eco405	eco501	eco502	eco503	eco504	eco505	
+abiegran	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	11500	<< FIA 95th %ile
+abielasi	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	7000	<< FIA 95th %ile, 
+cercledi	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	1600	<< FIA 95th %ile, 
+juniocci	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	1900	<< FIA 95th %ile, 
+lariocci	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	6300	<< FIA 95th %ile, Melissa's for larilari is 24000
+piceenge	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	7900	<< FIA 95th %ile, 
+pinualbi	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	2800	<< FIA 95th $ile, 
+pinucont	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	5700	<< FIA 95th $ile, 
+pinupond	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	9300	<< FIA 95th %ile, 
+poputrem	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	1300	<< FIA 95th %ile, Alec (ID), Lichstein et al, 2009, New Mexico (123 yrs)
+pseumenz	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	7100	<< FIA 95th %ile, 
+toleresp	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+intoresp	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+nonnseed	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+fixnresp	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+natvgrss	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	700	
+invsgrss	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000	1000
+
+>>Brooke: Below are Pep's. Keeping now for reference
+	
+>>	eco2	eco3	eco11	eco12	eco13	eco14	eco15	eco21	eco22	eco23	eco24	eco25	eco31	eco32	eco33	eco34	eco35	eco42	eco43	eco44	eco45	eco51	eco52	eco53	eco54	eco55
+>>ALRU2	15000	7500	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000
+>>CADE27	9000	4500	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000
+>>PSME	21000	10500	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000	100000
+>>ACMA3	3000	1500	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000
+>>ARME	13500	6750	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000	50000
+>>LIDE3	18000	9000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000
+>>CHCH7	12000	6000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000
+>>QUGA4	9000	4500	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000	30000
+>>QUCH2	9000	4500	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000
+>>QUKE	9000	4500	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000
+>>PIPO	12000	6000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000
+>>PILA	12000	6000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000	40000
+>>PIMO3	3000	1500	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000	10000
+>>ABGRC	18000	9000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000
+>>ABPRSH	18000	9000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000	60000
+>>FX_Resp_Deciduous	600	300	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+>>NoFX_Resp_Deciduous 	600	300	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+>>FX_Seed_Deciduous	600	300	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+>>NoFX_Seed_Deciduous	600	300	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+>>FX_Resp_Evergreen	600	300	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+>>NoFX_Resp_Evergreen	600	300	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+>>FX_Seed_Evergreen	600	300	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+>>NoFX_Seed_Evergreen	600	300	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000	2000
+
+	
+
+											
+AgeOnlyDisturbances:BiomassParameters  "Bio-reduction-conventional.txt"
+

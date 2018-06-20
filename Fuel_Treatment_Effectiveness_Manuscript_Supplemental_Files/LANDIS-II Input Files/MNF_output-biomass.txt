@@ -1,0 +1,14 @@
+LandisData "Biomass Output"
+
+Timestep      10
+
+>>MakeMaps  yes  << getting an error message that "MakeMaps" isn't recognized. 11/16/16
+MakeTable  yes
+
+Species  all
+  
+MapNames  biomass/{species}-{timestep}.img
+
+DeadPools woody
+
+MapNames  biomass/{pool}-{timestep}.img
