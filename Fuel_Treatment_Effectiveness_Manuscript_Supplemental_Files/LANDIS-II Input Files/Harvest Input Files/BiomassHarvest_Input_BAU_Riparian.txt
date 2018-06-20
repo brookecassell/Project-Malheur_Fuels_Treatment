@@ -4,7 +4,7 @@ LandisData  "Biomass Harvest"
 
 >>9/10/2017 Business-as-Usual + Riparian Scenario. 
 >> This version adds 10% of riparian management area Rx burn only, 10% of management area Dry MixedConifer prescription.
->>	I'll start here, and then gradually increase the amount to find a threshhold where it seems to make any difference in fire spread.
+
 
 Timestep    10
 
